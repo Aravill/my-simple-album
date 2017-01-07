@@ -1,11 +1,19 @@
 package cz.moz.projects.album.ui;
 
+import org.springframework.context.annotation.Bean;
+
 import com.vaadin.annotations.Theme;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 
@@ -15,59 +23,104 @@ public class AlbumUI extends UI{
 
 	private VerticalLayout content;
 	
+	private VaadinRequest vaadinRequest;
+	
+	public VaadinRequest getVaadinRequest() {
+		return vaadinRequest;
+	}
+
 	@Override
 	protected void init(VaadinRequest request) {
-		
+
+		this.vaadinRequest = request;
+
 		Page page = Page.getCurrent();
-		page.setTitle("Simple Album");
-		
+		page.setTitle("Album");
+
 		VerticalLayout pageContainer = new VerticalLayout();
 		pageContainer.setSizeFull();
-		
+
 		VerticalLayout iContainer = new VerticalLayout();
 		iContainer.setWidth("1024px");
 		iContainer.setHeight("800px");
-		
+
+		VerticalLayout iiContainer = new VerticalLayout();
+		iiContainer.setWidth("100%");
+		iiContainer.setStyleName("bordered-container");
+
 		HorizontalLayout header = new HorizontalLayout();
 		header.setWidth("100%");
 		header.setHeight("140px");
-		header.setStyleName("header");
-		
-		HorizontalLayout mcContainer = new HorizontalLayout();
-		mcContainer.setWidth("100%");
-		mcContainer.setHeight("660px");
-		
-		HorizontalLayout imcContainer = new HorizontalLayout();
-		imcContainer.setHeight("100%");
-		imcContainer.setStyleName("menu-content");
-		
+		header.setStyleName("bordered-container");
+
+		HorizontalLayout mccontainer = new HorizontalLayout();
+		mccontainer.setWidth("100%");
+		mccontainer.setHeight("660px");
+
+		HorizontalLayout imccontainer = new HorizontalLayout();
+		imccontainer.setHeight("100%");
+		imccontainer.setStyleName("bordered-container");
+
 		VerticalLayout leftMenu = new VerticalLayout();
 		leftMenu.setWidth("200px");
 		leftMenu.setHeight("660px");
 		leftMenu.setSpacing(true);
 		leftMenu.setMargin(true);
-		leftMenu.setStyleName("left-menu");
-		
+		leftMenu.setStyleName("bordered-container");
+
 		content = new VerticalLayout();
-		content.setWidth("824px");
+		content.setWidth("821px");
 		content.setHeight("660px");
 		content.setMargin(true);
-		content.setStyleName("content");
+		content.setStyleName("bordered-container");
+
+		//Componenty stránky
+		imccontainer.addComponent(leftMenu);
+		imccontainer.addComponent(content);
+
+		mccontainer.addComponent(imccontainer);
+
+		iiContainer.addComponent(header);
+		iiContainer.addComponent(mccontainer);
+
+		iContainer.addComponent(iiContainer);
+
+		pageContainer.addComponent(iContainer);
+		pageContainer.setComponentAlignment(iContainer, Alignment.TOP_CENTER);
 		
-		imcContainer.addComponent(leftMenu);
-		imcContainer.addComponent(content);
+		ListSelect imageList = new ListSelect("Image List");
+		imageList.addItem("Image1");
+		imageList.setNullSelectionAllowed(true);
 		
-		mcContainer.addComponent(imcContainer);
 		
-		Button uploadPhotoButton = new Button("Upload photo", new Button.ClickListener() {
-			
+		//Tlaèítko pro výbìr fotky
+		final AlbumImageUploader reciever = new AlbumImageUploader();
+		Upload selectButton = new Upload("Select image", reciever);
+		
+		//Component pod-okna
+		final Window uploadImageWindow = new Window("Upload Image");
+		VerticalLayout uploadVerticalContent = new VerticalLayout();
+		uploadVerticalContent.setWidth("400px");
+		uploadVerticalContent.setHeight("200px");
+		uploadVerticalContent.setMargin(true);
+		uploadImageWindow.setContent(uploadVerticalContent);
+		//Pøidání komponentù do pod-okna
+		uploadVerticalContent.addComponent(selectButton);
+		uploadImageWindow.center();
+		//uploadImageContent.addComponent();
+
+		Button uploadButton = new Button("Upload image", new Button.ClickListener() {
+
 			@Override
 			public void buttonClick(ClickEvent event) {
-				
-				
+				addWindow(uploadImageWindow);
 			}
-		});
-		
-	}
 
+		});
+		leftMenu.addComponent(uploadButton);
+		leftMenu.addComponent(imageList);
+		
+		setContent(pageContainer);
+
+	}
 }
