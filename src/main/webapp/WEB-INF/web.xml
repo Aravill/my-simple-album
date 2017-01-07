@@ -5,6 +5,22 @@
     <display-name>Album</display-name>
     <description>Album</description>
 
+	<!-- Umisteni konfigurace spring -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/applicationContext.xml</param-value>
+	</context-param>
+	
+	<!-- Nacteni konfigurace spring-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- Inject odkudkoliv -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
     <servlet>
         <servlet-name>AlbumVaadinServlet</servlet-name>
 		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>

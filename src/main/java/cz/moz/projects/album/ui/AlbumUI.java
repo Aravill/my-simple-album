@@ -1,18 +1,17 @@
 package cz.moz.projects.album.ui;
 
-import org.springframework.context.annotation.Bean;
-
 import com.vaadin.annotations.Theme;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+
+import cz.moz.projects.album.app.SpringContextHelper;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -31,7 +30,8 @@ public class AlbumUI extends UI{
 
 	@Override
 	protected void init(VaadinRequest request) {
-
+		
+		SpringContextHelper.inject(this);
 		this.vaadinRequest = request;
 
 		Page page = Page.getCurrent();
