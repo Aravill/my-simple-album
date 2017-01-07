@@ -9,12 +9,22 @@ public interface ImagesRepository extends JpaRepository<AlbumImage, Integer>{
 
 	AlbumImage findByUuid(String uuid);
 	
-	@Query("select distinct (year(dateTaken)) from #{#entityName}")
+//	@Query("select distinct (year(dateTaken)) from #{#entityName}")
+//	Integer[] findAllYears();
+	
+//	@Query("select distinct (month(dateTaken)) from #{#entityName} where year(dateTaken) = ?")
+//	Integer[] findMonths(Integer year);
+	
+//	@Query("select distinct (day(dateTaken)) from #{#entityName} where year(dateTaken) = ?1 and month (dateTaken) =?2")
+//	Integer[] findDays(Integer year, Integer month);
+
+	@Query("select distinct(year(dateofacquisition)) from #{#entityName}")
 	Integer[] findAllYears();
 	
-	@Query("select distinct (month(dateTaken)) from #{#entityName} where year(dateTaken) = ?")
+	@Query("select distinct(month(dateofacquisition)) from #{#entityName} where year(dateofacquisition) = ?")
 	Integer[] findMonths(Integer year);
 	
-	@Query("select distinct (day(dateTaken)) from #{#entityName} where year(dateTaken) = ?1 and month (dateTaken) =?2")
+	@Query("select distinct(day(dateofacquisition)) from #{#entityName} where year(dateofacquisition) = ?1 and month(dateofacquisition) = ?2")
 	Integer[] findDays(Integer year, Integer month);
+	
 }

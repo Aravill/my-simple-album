@@ -1,5 +1,7 @@
 package cz.moz.projects.album.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -11,6 +13,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import cz.moz.projects.album.app.SpringContextHelper;
+import cz.moz.projects.album.repos.ImagesRepository;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -27,6 +30,9 @@ public class AlbumUI extends UI{
 	public VaadinRequest getVaadinRequest() {
 		return vaadinRequest;
 	}
+	
+	@Autowired
+	ImagesRepository imagesRepo;
 
 	@Override
 	protected void init(VaadinRequest request) {
@@ -108,7 +114,7 @@ public class AlbumUI extends UI{
 		uploadVerticalContent.addComponent(selectButton);
 		uploadImageWindow.center();
 		//uploadImageContent.addComponent();
-
+		
 		Button uploadButton = new Button("Upload image", new Button.ClickListener() {
 
 			@Override

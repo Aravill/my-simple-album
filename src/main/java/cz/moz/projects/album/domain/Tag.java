@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@SequenceGenerator(name = "seq_tags", sequenceName = "seq_tags", initialValue = 1, allocationSize = 1)
 @Entity
 @Table(name = "tag")
 public class Tag {

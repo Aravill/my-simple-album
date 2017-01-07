@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.persistence.*;
 
+@SequenceGenerator(name = "seq_image", sequenceName = "seq_image", initialValue = 1, allocationSize = 1)
+@Entity
+@Table(name="image")
 public class AlbumImage {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tags")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_image")
 	private int id;
 	@Column(length = 40)
 	private String uuid;
