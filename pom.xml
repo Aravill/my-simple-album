@@ -16,7 +16,7 @@
   	<springdata.jpa.version>1.10.1.RELEASE</springdata.jpa.version>
   	<metadata.extractor.version>2.8.1</metadata.extractor.version>
   	<jdk.version>1.7</jdk.version>
-  	<vaadin.version>7.6.6</vaadin.version>
+  	<vaadin.version>7.7.5</vaadin.version>
   	<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
   </properties>
   

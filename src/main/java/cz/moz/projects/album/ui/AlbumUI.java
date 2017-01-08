@@ -80,7 +80,7 @@ public class AlbumUI extends UI{
 		content.setMargin(true);
 		content.setStyleName("bordered-container");
 
-		//Componenty stránky
+		//Componenty strï¿½nky
 		imccontainer.addComponent(leftMenu);
 		imccontainer.addComponent(content);
 
@@ -99,27 +99,30 @@ public class AlbumUI extends UI{
 		imageList.setNullSelectionAllowed(true);
 		
 		
-		//Tlaèítko pro výbìr fotky
-		final AlbumImageUploader reciever = new AlbumImageUploader();
-		Upload selectButton = new Upload("Select image", reciever);
+//		Tlaï¿½ï¿½tko pro vï¿½bï¿½r fotky
+//		final AlbumImageUploader reciever = new AlbumImageUploader();
+//		Upload selectButton = new Upload("Select image", reciever);
+//		selectButton.setImmediate(true);
+//		selectButton.setButtonCaption(null);
 		
-		//Component pod-okna
-		final Window uploadImageWindow = new Window("Upload Image");
-		VerticalLayout uploadVerticalContent = new VerticalLayout();
-		uploadVerticalContent.setWidth("400px");
-		uploadVerticalContent.setHeight("200px");
-		uploadVerticalContent.setMargin(true);
-		uploadImageWindow.setContent(uploadVerticalContent);
-		//Pøidání komponentù do pod-okna
-		uploadVerticalContent.addComponent(selectButton);
-		uploadImageWindow.center();
-		//uploadImageContent.addComponent();
+//		//Component pod-okna
+//		final Window uploadImageWindow = new Window("Upload Image");
+//		VerticalLayout uploadVerticalContent = new VerticalLayout();
+//		uploadVerticalContent.setWidth("400px");
+//		uploadVerticalContent.setHeight("200px");
+//		uploadVerticalContent.setMargin(true);
+//		uploadImageWindow.setContent(uploadVerticalContent);
+//		//Pï¿½idï¿½nï¿½ komponentï¿½ do pod-okna
+//		uploadVerticalContent.addComponent(selectButton);
+//		uploadImageWindow.center();
+//		//uploadImageContent.addComponent();
 		
 		Button uploadButton = new Button("Upload image", new Button.ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				addWindow(uploadImageWindow);
+//				addWindow(uploadImageWindow);
+				UI.getCurrent().addWindow(new ImageUploadWindow());
 			}
 
 		});

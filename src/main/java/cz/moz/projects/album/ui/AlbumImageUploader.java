@@ -11,11 +11,12 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.Upload.SucceededEvent;
+import com.vaadin.ui.Upload.SucceededListener;
 
 import cz.moz.projects.album.domain.AlbumImage;
 import cz.moz.projects.album.services.StorageService;
 
-public class AlbumImageUploader implements Receiver{
+public abstract class AlbumImageUploader implements Receiver, SucceededListener {
 	private static final long serialVersionUID = -6165149741632163143L;
 	
 	
@@ -34,8 +35,10 @@ public class AlbumImageUploader implements Receiver{
 		this.storageService = storageService;
 	}
 	
+	@Override
 	public void uploadSucceeded(SucceededEvent event){
-		ai = storageService.storeFile(image, originalFileName);
+//		ai = storageService.storeFile(image, originalFileName);
+		afterUploadSucceeded(this.originalFileName);
 	}
 	
 	@Override
@@ -53,5 +56,11 @@ public class AlbumImageUploader implements Receiver{
 		}
 		return fos;
 	}
+	
+	public String getFileName() {
+		return originalFileName;
+	}
+	
+	public abstract void afterUploadSucceeded(String fileName);
 
 }
